@@ -1,5 +1,6 @@
 #lang scheme
 (require scheme/match)
+(define test (list '(1 2 3 4 ) '(5 6 7 8 ) '(9 10 11 12 ) '(13 14 15 16 )))
 (define (make-chess-board)
   (define (make-element element num)
     (if (= num 0) 
@@ -10,7 +11,7 @@
    4)
   )
 
-(define (move-left lst)
+(define (move-left-lst lst)
   (define (left lst)
     (cond ((> (length lst) 2)
            (if (= (car lst) (cadr lst)) 
@@ -33,4 +34,12 @@
             lst)))
   (shift (left lst)))
 
+(define (anticlc-rotate cb)
+  (if (= 1 (length (car cb)))
+      (cons (map car cb) null)
+      (append (anticlc-rotate (map cdr cb)) 
+            (cons (map car cb) null))))
 
+
+
+(anticlc-rotate test)
