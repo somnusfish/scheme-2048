@@ -42,7 +42,7 @@
   (if (= 1 (length (car cb)))
       (cons (map car cb) null)
       (append (anticlc-rotate (map cdr cb)) 
-            (cons (map car cb) null))))
+              (cons (map car cb) null))))
 
 (define (mv-left cb)
   (map move-left-lst cb))
@@ -70,15 +70,10 @@
 
 (define (win? cb)
   (define (win-lst? lst)
-    (if (null? lst)
-        #f
-        (if (= 2048 (car lst))
-            #t
-            (win-lst? (cdr lst)))))
-  (if (null? cb)
-      #f
-      (if (win-lst? (car cb))
-          #t
-          (win? (cdr cb)))))
-
+    (and (not (null? lst))
+         (or (= 2048 (car lst))
+             (win-lst? (cdr lst)))))
+  (and (not (null? cb))
+       (or (win-lst? (car cb))
+           (win? (cdr cb)))))
 
