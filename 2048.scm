@@ -62,9 +62,5 @@
 
 (define (win? cb)
   (define (win-lst? lst)
-    (and (not (null? lst))
-         (or (= 2048 (car lst))
-             (win-lst? (cdr lst)))))
-  (and (not (null? cb))
-       (or (win-lst? (car cb))
-           (win? (cdr cb)))))
+    (ormap (lambda (x) (= x 2048)) lst))
+  (ormap win-lst? cb))
