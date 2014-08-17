@@ -73,3 +73,30 @@
                              (mv-right cb)
                              (mv-up cb)
                              (mv-down cb)))))
+
+(define (gen-num)
+  (if (zero? (remainder (random 10) 10))
+      4
+      2))
+(define (gen-cb cb)
+  (define (count-zero cb)
+    (apply +
+           (map
+            (lambda (line) (length (filter zero? line)))
+            cb)))
+  (define (change-lst lst posi)
+    (cond ((not (zero? (car lst)))
+           (cons (car lst) (change-lst (cdr lst) posi)))
+          ((not (= posi 1))
+           (cons (car lst) (change-lst (cdr lst) (- posi 1))))
+          (else
+           (cons (gen-num) (cdr lst)))))
+  (define (change cb posi)
+    (let ((x (length (filter zero? (car cb)))))
+      (if (< x posi)
+          (cons (car cb) 
+                  (change (cdr cb) (- posi x)))
+          (cons (change-lst (car cb) posi)
+                (cdr cb)))))
+  (change cb (+ 1(random (count-zero cb)))))
+
