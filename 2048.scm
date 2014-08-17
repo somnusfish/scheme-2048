@@ -61,6 +61,7 @@
        cb))))))
 
 (define (win? cb)
-  (define (win-lst? lst)
-    (ormap (lambda (x) (= x 2048)) lst))
-  (ormap win-lst? cb))
+  (ormap 
+   (lambda (x) (ormap (lambda (y) (= y 2048)) x)) 
+   cb))
+
