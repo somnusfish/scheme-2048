@@ -64,3 +64,12 @@
    (lambda (line) (ormap (lambda (x) (= x 2048)) line)) 
    cb))
 
+(define (fail? cb)
+  (define (zero-in? cb)
+    (ormap
+     (lambda (line) (ormap (lambda (x) (= x 0)) line))
+     cb))
+  (not (ormap zero-in? (list (mv-left cb)
+                             (mv-right cb)
+                             (mv-up cb)
+                             (mv-down cb)))))
