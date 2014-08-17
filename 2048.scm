@@ -1,7 +1,6 @@
 #lang scheme
 (define (make-chess-board)
-  (make-list 4 (make-list 4 0))
-  )
+  (make-list 4 (make-list 4 0)))
 
 (define (move-left-lst lst)
   (define (left lst)
@@ -62,6 +61,6 @@
 
 (define (win? cb)
   (ormap 
-   (lambda (x) (ormap (lambda (y) (= y 2048)) x)) 
+   (lambda (line) (ormap (lambda (x) (= x 2048)) line)) 
    cb))
 
