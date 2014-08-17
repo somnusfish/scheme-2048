@@ -1,12 +1,6 @@
 #lang scheme
 (define (make-chess-board)
-  (define (make-element element num)
-    (if (= num 0) 
-        null
-        (cons element (make-element element (- num 1)))))
-  (make-element
-   (make-element 0 4)
-   4)
+  (make-list 4 (make-list 4 0))
   )
 
 (define (move-left-lst lst)
@@ -76,4 +70,3 @@
   (and (not (null? cb))
        (or (win-lst? (car cb))
            (win? (cdr cb)))))
-
