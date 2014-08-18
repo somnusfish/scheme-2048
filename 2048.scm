@@ -1,1 +1,3 @@
-#lang scheme
+#lang scheme/gui
+(require scheme/gui/base)
+
