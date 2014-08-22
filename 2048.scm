@@ -12,8 +12,8 @@
         string-append 
         (map 
          (lambda (x) 
-           (let ((y (format "~A " x)))
-             (string-append (make-string (- 4 (string-length y)) #\ ) y))) 
+           (let ((y (format "~A" x)))
+             (format "~A " (string-append (make-string (- 4 (string-length y)) #\ ) y)))) 
          l))))
     cb)))
 (define frame (new frame%
@@ -25,7 +25,7 @@
 (define msg (new message%
                  [parent frame]
                  [label "S to start\nR to restart\nup down left right to move"]))
-(define text "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ")
+(define text (change-to-str (make-chess-board) ))
 (define my-canvas%
   (class canvas% ; The base class is canvas%
     ; Define overriding method to handle mouse events
@@ -54,10 +54,10 @@
       (lambda (canvas dc)
         (send dc set-scale 3 3)
         (send dc set-text-foreground "blue")
-        (send dc draw-text (substring text 0 7) 0 0 )
-        (send dc draw-text (substring text 8 15)0 20 )
-        (send dc draw-text (substring text 16 23) 0 40 )
-        (send dc draw-text (substring text 24 31) 0 60))])
+        (send dc draw-text (substring text 0 19) 0 0 )
+        (send dc draw-text (substring text 20 39)0 20 )
+        (send dc draw-text (substring text 40 59) 0 40 )
+        (send dc draw-text (substring text 60 79) 0 60))])
 
 (send frame show #t)
 (change-to-str (make-chess-board) )
