@@ -1,4 +1,12 @@
 #lang scheme
+(provide make-chess-board)
+(provide win?)
+(provide fail?)
+(provide mv-left)
+(provide mv-right)
+(provide mv-up)
+(provide mv-down)
+(provide gen-cb)
 (define (make-chess-board)
   (make-list 4 (make-list 4 0)))
 
