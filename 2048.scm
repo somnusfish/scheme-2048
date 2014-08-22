@@ -13,7 +13,7 @@
         (map 
          (lambda (x) 
            (let ((y (format "~A " x)))
-             (string-append  y (make-string (- 4 (string-length y)) #\ )))) 
+             (string-append (make-string (- 4 (string-length y)) #\ ) y))) 
          l))))
     cb)))
 (define frame (new frame%
