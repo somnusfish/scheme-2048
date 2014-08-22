@@ -1,6 +1,7 @@
 #lang scheme/gui
 (require scheme/gui/base)
 (require "chessboard.scm")
+
 (define (change-to-str cb)
   (apply 
    string-append 
@@ -10,7 +11,9 @@
        (apply 
         string-append 
         (map 
-         (lambda (x) (format "~ " x)) 
+         (lambda (x) 
+           (let ((y (format "~A " x)))
+             (string-append  y (make-string (- 4 (string-length y)) #\ )))) 
          l))))
     cb)))
 (define frame (new frame%
@@ -37,8 +40,8 @@
               ((eq? keycode 'down) (set! text "down"))
               ((eq? keycode 'left) (set! text "left"))
               ((eq? keycode 'right) (set! text "right"))
-              ((eq? keycode #\space ) (set! text "start"))
-              ((eq? keycode 'r) (set! text "restart")))
+              ((eq? keycode #\s ) (set! text "start"))
+              ((eq? keycode #\r) (set! text "restart")))
         ;(set! text (format "~A" keycode))
         (send this refresh-now)
         (send this on-paint)))
@@ -51,7 +54,10 @@
       (lambda (canvas dc)
         (send dc set-scale 3 3)
         (send dc set-text-foreground "blue")
-        (send dc draw-text text 0 0 ))])
+        (send dc draw-text (substring text 0 7) 0 0 )
+        (send dc draw-text (substring text 8 15)0 20 )
+        (send dc draw-text (substring text 16 23) 0 40 )
+        (send dc draw-text (substring text 24 31) 0 60))])
 
 (send frame show #t)
 (change-to-str (make-chess-board) )
