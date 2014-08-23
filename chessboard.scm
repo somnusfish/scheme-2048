@@ -103,8 +103,11 @@
     (let ((x (length (filter zero? (car cb)))))
       (if (< x posi)
           (cons (car cb) 
-                  (change (cdr cb) (- posi x)))
+                (change (cdr cb) (- posi x)))
           (cons (change-lst (car cb) posi)
                 (cdr cb)))))
-  (change cb (+ 1(random (count-zero cb)))))
+  (let ((num (count-zero cb)))
+    (if (= num 0)
+        cb
+        (change cb (+ 1 (random (count-zero cb)))))))
 
