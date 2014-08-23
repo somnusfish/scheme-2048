@@ -18,15 +18,17 @@
     cb)))
 (define frame (new frame%
                    [label "2048"]
-                   [width 300]
-                   [height 300]))
+                   [width 400]
+                   [height 400]))
 
 
 (define msg (new message%
                  [parent frame]
                  [label "S to start\nR to restart\nup down left right to move"]))
+
 (define cb (make-chess-board))
-(define text (change-to-str cb ))
+(define text (change-to-str cb))
+
 (define my-canvas%
   (class canvas% 
     (define/override (on-char event)
@@ -51,10 +53,14 @@
         (send dc set-scale 3 3)
         (send dc set-text-foreground "blue")
         (send dc draw-text (substring text 0 19) 0 0 )
-        (send dc draw-text (substring text 20 39)0 20 )
-        (send dc draw-text (substring text 40 59) 0 40 )
-        (send dc draw-text (substring text 60 79) 0 60))])
+        (send dc draw-text (substring text 20 39)0 25 )
+        (send dc draw-text (substring text 40 59) 0 50 )
+        (send dc draw-text (substring text 60 79) 0 75)
+        (send dc draw-text (substring text 80) 40 40))])
 
 (send frame show #t)
 
-(change-to-str (mv-up (gen-cb (make-chess-board))))
+(change-to-str (list (list 1 22 333 4444)
+                 (list 4444 333 22 1)
+                 (list 333 22 1 4444)
+                 (list 22 4444 1 333)))
