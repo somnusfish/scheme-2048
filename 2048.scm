@@ -25,21 +25,23 @@
 (define msg (new message%
                  [parent frame]
                  [label "S to start\nR to restart\nup down left right to move"]))
-
-(define text (change-to-str (make-chess-board) ))
+(define cb (make-chess-board))
+(define text (change-to-str cb ))
 (define my-canvas%
   (class canvas% 
     (define/override (on-char event)
-      (let ((keycode (send event get-key-release-code))
-            (cb (make-chess-board)))
-        (cond ((eq? keycode 'up) (set! text "up"))
-              ((eq? keycode 'down) (set! text "down"))
-              ((eq? keycode 'left) (set! text "left"))
-              ((eq? keycode 'right) (set! text "right"))
-              ((eq? keycode #\s ) (set! text "start"))
-              ((eq? keycode #\r) (set! text "restart")))
+      (let ((keycode (send event get-key-release-code)))
+        (cond ((eq? keycode 'up) (set! cb  (gen-cb (mv-up cb))))
+              ((eq? keycode 'down) (set! cb (gen-cb (mv-down cb))))
+              ((eq? keycode 'left) (set! cb (gen-cb (mv-left cb))))
+              ((eq? keycode 'right) (set! cb (gen-cb (mv-right cb))))
+              ((eq? keycode #\s ) (set! cb (gen-cb cb)))
+              ((eq? keycode #\r) (set! cb (make-chess-board))))
+        ;(set! cb  (mv-up (gen-cb cb)))
+        (set! text (change-to-str cb))
         (send this refresh-now)
-        (send this on-paint)))
+        (send this on-paint))
+      )
     (super-new)))
 
 (new my-canvas%
@@ -55,4 +57,4 @@
 
 (send frame show #t)
 
-
+(change-to-str (mv-up (gen-cb (make-chess-board))))
