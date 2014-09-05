@@ -32,14 +32,21 @@
 (define my-canvas%
   (class canvas% 
     (define/override (on-char event)
-      (let ((keycode (send event get-key-release-code)))
-        (cond ((eq? keycode 'up) (set! cb  (gen-cb (mv-up cb))))
-              ((eq? keycode 'down) (set! cb (gen-cb (mv-down cb))))
-              ((eq? keycode 'left) (set! cb (gen-cb (mv-left cb))))
-              ((eq? keycode 'right) (set! cb (gen-cb (mv-right cb))))
-              ((eq? keycode #\s ) (set! cb (gen-cb cb)))
-              ((eq? keycode #\r) (set! cb (make-chess-board)))
-              (else #f))
+      (let ([keycode (send event get-key-release-code)])
+        (case keycode
+          ('up
+           (set! cb  (gen-cb (mv-up cb))))
+          ('down
+           (set! cb (gen-cb (mv-down cb))))
+          ('left
+           (set! cb (gen-cb (mv-left cb))))
+          ('right
+           (set! cb (gen-cb (mv-right cb))))
+          ('#\s
+           (set! cb (gen-cb cb)))
+          ('#\r
+           (set! cb (make-chess-board)))
+          (else #f))
         ;(set! cb  (mv-up (gen-cb cb)))
         (set! text (change-to-str cb))
         (if (win? cb)
