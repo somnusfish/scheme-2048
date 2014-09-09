@@ -43,7 +43,7 @@
           ('right
            (set! cb (gen-cb (mv-right cb))))
           ('#\s
-           (set! cb (gen-cb cb)))
+           (set! cb (gen-cb (gen-cb cb))))
           ('#\r
            (set! cb (make-chess-board)))
           (else #f))
